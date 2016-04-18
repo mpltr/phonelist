@@ -155,53 +155,61 @@ function highlight(header) {
 // Sort by ...
 var sortedBy = "";
 gbi("firstNameHead").addEventListener("click", function(){
+    save();
     ascendDescend("FirstName");
     highlight(this);
 });
 gbi("secondNameHead").addEventListener("click", function(){
+    save();
     ascendDescend("SecondName");
     highlight(this);
 });
 gbi("internalHead").addEventListener("click", function(){
+    save();
     ascendDescend("internal");
     highlight(this);
 });
 gbi("externalHead").addEventListener("click", function(){
+    save();
     ascendDescend("external");
     highlight(this);
 });
 gbi("office").addEventListener("click", function(){
+    save();
     ascendDescend("office");
     highlight(this);
 });
 
-// Search
-//function searchContacts(){
-//    var searchBoxValue = gbi("searchBox").value.toLowerCase();
-//    var searchFor = new RegExp(searchBoxValue);
-//    
-//    for (var i=0; i<addressBook.length; i++){
-//        var match = false;
-//        for(var key in addressBook[i]){
-//            if(key !== "hidden"){
-//                var trial = addressBook[i][key].toLowerCase();
-//                var trialResult =  searchFor.test(trial);
-//                if(trialResult == true){
-//                    match = true;
-//                }
-//
-//            }
-//            if(match == false){
-//                addressBook[i]["hidden"] = true;
-//            } else {
-//                addressBook[i]["hidden"] = false;
-//            }
-//        }
-//    }
-//    populate();
-//}
+ //Search
+function searchContacts(){
+    var searchBoxValue = gbi("searchBox").value.toLowerCase();
+    var searchFor = new RegExp(searchBoxValue);
+    
+    for (var i=0; i< exportArray.length; i++){
+        var match = false;
+        for(var key in exportArray[i]){
+            if(key !== "hidden"){
+                var trial = exportArray[i][key].toLowerCase();
+                var trialResult =  searchFor.test(trial);
+                if(trialResult == true){
+                    match = true;
+                }
 
-//gbi('searchBox').addEventListener("input", searchContacts);
+            }
+            if(match == false){
+                exportArray[i]["hidden"] = true;
+            } else {
+                exportArray[i]["hidden"] = false;
+            }
+        }
+    }
+    populate();
+}
+
+gbi('searchBox').addEventListener("input", function(){
+    save();
+    searchContacts();
+});
 
 // Load
 function load(){
@@ -235,7 +243,6 @@ function save(){
         var off = gbi('table').rows[i].cells[4].innerHTML;
         exportArray[i-1] = new Contact(fn,sn,int,ext,off);
 }
-    sortBy('FirstName');
 }
     
 function exportData() {
@@ -243,12 +250,16 @@ function exportData() {
     var stringyExport = JSON.stringify(exportArray);
     document.write(stringyExport);
 }
-
+// Export Event Listener
 gbi('export').addEventListener("click", exportData);
 
-gbi('save').addEventListener("click", save);
+//Save Event Listener
+gbi('save').addEventListener("click", function(){
+    save();
+    sortBy('FirstName');
+});
 
-//add
+//add Event Listener
 gbi('add').addEventListener("click", function(){
     gbi("table").insertRow(1);
             var rows = gbi("table").rows;
