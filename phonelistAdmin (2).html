@@ -13,14 +13,16 @@
     <form>
         
         <div id="inputs">
-            <label for="firstName">First Name</label><br>
-            <input type="text" id="firstName"></input><br>
-            <label for="secondName">Second Name</label><br>
-            <input type="text" id="secondName"></input><br> 
-            <label for="number">Number</label><br>
-            <input type="text" id="number"></input><br>  
-            <label for="email">Email</label><br>
-            <input type="text" id="email"></input><br><br>
+            <label for="firstName">First Name</label>
+            <textarea type="text" id="firstName" rows="50" cols="25"></textarea>
+            <label for="secondName">Second Name</label>
+            <textarea type="text" id="secondName" rows="50" cols="25"></textarea> 
+            <label for="internal">Internal</label>
+            <textarea type="text" id="internal" rows="50" cols="25"></textarea>
+            <label for="external">External</label>
+            <textarea type="text" id="external" rows="50" cols="25"></textarea>
+            <label for="office">Office</label>
+            <textarea type="text" id="office" rows="50" cols="25"></textarea>
             <button id="add" onclick="return false;">Add</button>
             <button id="viewAll" onclick="return false;">View All</button><br><br>
             <button id="delete" onclick="return false;">Delete Selected</button>
@@ -33,8 +35,8 @@
                     <td style: width="20px"><input type="checkbox" id="delCheckAll"></input></td>
                     <td><a href="#" id="firstNameHead">First Name</a></td>
                     <td><a href="#" id="secondNameHead">Second Name</a></td>
-                    <td><a href="#" id="numberHead">Number</a></td>
-                    <td><a href="#" id="emailHead">Email</a></td>
+                    <td><a href="#" id="internalHead">internal</a></td>
+                    <td><a href="#" id="externalHead">external</a></td>
                 </tr>
 
             </table>
@@ -47,6 +49,6 @@
     </form>
        
         <script type="text/javascript" src="../httprequest.js"></script>
-        <script src="Contact%20Book%20beta.js"></script>
+        <script src="phonelist.js"></script>
     </body>
 </html>

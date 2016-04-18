@@ -9,44 +9,24 @@
     <link rel="stylesheet" href="style.css">
         
     
-        
-    <form>
-        
+    <div id="wrapper">
+        <div id="header">
+            <img src="rsg-logo.png"/>
+        </div>
         <div id="inputs">
-            <label for="firstName">First Name</label><br>
-            <input type="text" id="firstName"></input><br>
-            <label for="secondName">Second Name</label><br>
-            <input type="text" id="secondName"></input><br> 
-            <label for="number">Number</label><br>
-            <input type="text" id="number"></input><br>  
-            <label for="email">Email</label><br>
-            <input type="text" id="email"></input><br><br>
-            <button id="add" onclick="return false;">Add</button>
-            <button id="viewAll" onclick="return false;">View All</button><br><br>
-            <button id="delete" onclick="return false;">Delete Selected</button>
+            <img id="searchIcon" src="search.png"/>
             <input type="text" id="searchBox"></input>
-            <button id="search" onclick="return false;">Search</button>
-        </div>
-        <div id="tableWrapper" >
-            <table id="table" style="width:50%">
-                <tr id="topRow" class="tableHeader">
-                    <td style: width="20px"><input type="checkbox" id="delCheckAll"></input></td>
-                    <td><a href="#" id="firstNameHead">First Name</a></td>
-                    <td><a href="#" id="secondNameHead">Second Name</a></td>
-                    <td><a href="#" id="numberHead">Number</a></td>
-                    <td><a href="#" id="emailHead">Email</a></td>
-                </tr>
-
-            </table>
-        </div>
-<button id="save" onclick="return false;">Save</button>
-<button id="load" onclick="return false;">Load</button>
-    
-
-
-    </form>
-       
-        <script type="text/javascript" src="../httprequest.js"></script>
-        <script src="Contact%20Book%20beta.js"></script>
+        </div>   
+        <table id="table">
+            <tr id="topRow" class="tableHeader">
+                <td><a href="#" id="firstNameHead">First Name</a></td>
+                <td><a href="#" id="secondNameHead">Second Name</a></td>
+                <td><a href="#" id="internalHead">Internal</a></td>
+                <td><a href="#" id="externalHead">External</a></td>
+                <td><a href="#" id="office">Office</a></td>
+            </tr>
+        </table>
+    </div>   
+        <script src="phonelist.js"></script>
     </body>
 </html>

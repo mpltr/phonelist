@@ -53,7 +53,6 @@ function Contact(fn, sn, no, em) {
     this.SecondName = sn;
     this.internal = no;
     this.external = em;
-    this.office = of;
     this.hidden = false;
 }
 
@@ -62,6 +61,32 @@ var addressBook = new Array();
 
 // Search Results Array
 var searchResults = new Array();
+
+// Click Add
+gbi("add").addEventListener("click", addCon);
+
+// Add to Address Book Function
+function addCon() {
+    
+    var firstNames = gbi("firstName").value.split("\n");
+    var secondNames = gbi("secondName").value.split("\n");
+    var internals = gbi("internal").value.split("\n");
+    var externals = gbi("external").value.split("\n");
+    for (var j=0; j < firstNames.length; j++){
+        var f = firstNames[j];
+        var s = secondNames[j];
+        var n = internals[j];
+        var e = externals[j];
+        var i = addressBook.length;
+        addressBook[i] = new Contact(f,s,n,e);
+        populate(); 
+        selectAll();
+    }
+    gbi("firstName").value = "";
+    gbi("secondName").value = "";
+    gbi("internal").value = "";
+    gbi("external").value = "";
+};
 
 // Populate contact book
 function populate(){
@@ -81,20 +106,18 @@ function populate(){
             lastRow.insertCell(2);
             lastRow.insertCell(3);
             lastRow.insertCell(4);
-         
 
 
 
              for (var key in addressBook[i]){ 
-               if(key == "FirstName"){
-                    lastRow.cells[0].innerHTML = caps(addressBook[i][key]);
-                } else if(key == "SecondName"){
+                lastRow.cells[0].innerHTML = '<input type="checkbox" class="delCheck"></input>'
+                if(key == "FirstName"){
                     lastRow.cells[1].innerHTML = caps(addressBook[i][key]);
+                } else if(key == "SecondName"){
+                    lastRow.cells[2].innerHTML = caps(addressBook[i][key]);
                 } else if(key == "internal"){
-                    lastRow.cells[2].innerHTML = addressBook[i][key];
-                } else if(key == "external"){
                     lastRow.cells[3].innerHTML = addressBook[i][key];
-                } else if(key == "office"){
+                } else if(key == "external"){
                     lastRow.cells[4].innerHTML = addressBook[i][key];
                 }
             }
@@ -148,6 +171,39 @@ function highlight(header) {
     header.parentElement.setAttribute('class', "highlighted");    
 }
 
+// Select and delete 
+gbi("delCheckAll").addEventListener("change", selectAll);
+function selectAll(){
+    var tableLength = document.getElementsByTagName('tr').length;
+    if(gbi("delCheckAll").checked){
+       for(var i=0; i <tableLength-1; i++){
+            gbc('delCheck')[i].checked = true;
+        } 
+    } else {
+        for(var i=0; i <tableLength-1; i++){
+            gbc('delCheck')[i].checked = false;
+        }
+    }
+};
+gbi("delete").addEventListener("click", function(){
+    var tableLength = document.getElementsByTagName('tr').length;
+    var limit = tableLength -1;
+    var delCount = 0;
+    for(var i = 0; i < limit; i++){
+        if(gbc('delCheck')[i].checked){
+            addressBook.splice(i-delCount, 1);
+            gbc('delCheck')[i].checked = false;
+            i -= 1;
+            delCount++;
+            }
+        
+        }
+   
+   populate();
+   gbi('delCheckAll').checked = false; 
+});
+
+
 // Sort by ...
 var sortedBy = "";
 gbi("firstNameHead").addEventListener("click", function(){
@@ -176,7 +232,7 @@ function searchContacts(){
         var match = false;
         for(var key in addressBook[i]){
             if(key !== "hidden"){
-                var trial = addressBook[i][key].toLowerCase();
+                var trial = addressBook[i][key];
                 var trialResult =  searchFor.test(trial);
                 if(trialResult == true){
                     match = true;
@@ -193,7 +249,28 @@ function searchContacts(){
     populate();
 }
 
-gbi('searchBox').addEventListener("input", searchContacts);
+gbi('search').addEventListener("click", searchContacts);
+
+// View All
+
+gbi('viewAll').addEventListener("click", function(){
+    for(var i=0; i < addressBook.length; i++){
+        addressBook[i]["hidden"] = false;
+    }
+    populate();
+});
+
+
+// Cookie
+var expire = new Date();
+expire.setMonth(expire.getMonth() + 6 );
+document.cookie = "UserName=test;expires=" +expire.toUTCString() + ";";
+
+// Save
+gbi('save').addEventListener("click", function(){
+    sendData();
+})
+
 
 // Load
 function load(){
@@ -202,6 +279,8 @@ function load(){
 }
 
 load();
+
+gbi('load').addEventListener("click", load);
 
 function handleData(text) {
     var retrievedData = JSON.parse(text);

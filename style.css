@@ -1,12 +1,36 @@
-html {
+html, body {
     font-family: monospace;
+    height: 100%;
+    width: 100%;
+    background-image: url(Desktop%20-%20Horse.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+* {
+    margin: 0;
+    padding:0;
+}
+
+#wrapper {
+    min-width: 900px;
+    max-width: 50%;
+    height: 100%;
+    margin: auto;
+   
+    opacity: 0.95;
+   
 }
 
 #inputs { 
     float:left; 
+    display: flex;
+    align-content: center;
 }
 
 #table {
+    width: 100%;
     float:left;
     clear:both;
     margin-top: 20px;  
@@ -46,5 +70,13 @@ a {
     text-decoration: none;
     color: #ffffff;
     
+}
+
+#searchIcon {
+    height: 20px;
+}
+
+#searchBox {
+    margin-left: 5px;
 }
 
