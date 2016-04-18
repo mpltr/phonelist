@@ -1,0 +1,50 @@
+html {
+    font-family: monospace;
+}
+
+#inputs { 
+    float:left; 
+}
+
+#table {
+    float:left;
+    clear:both;
+    margin-top: 20px;  
+    border-collapse: collapse;
+}
+
+/* Table Header */
+.tableHeader {
+    background-color: #537dbf;
+    color: #ffffff;       
+}
+.tableHeader td {
+    border: solid;
+    border-width: 3px;
+    border-color: #8d95ff;
+    padding: 5px;
+}
+.highlighted {
+   background-color: #95b8ed;
+    color: #ffffff;
+}
+
+/* Contact Rows */
+.tableRow {
+    background-color: #d3dded;
+    color: #1b3155;  
+}
+
+.tableRow td {
+    border: solid;
+    border-width: 3px;
+    border-color: #acacac;
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    
+}
+
