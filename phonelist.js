@@ -81,8 +81,6 @@ function populate(){
             lastRow.insertCell(2);
             lastRow.insertCell(3);
             lastRow.insertCell(4);
-            lastRow.insertCell(5);
-
 
 
              for (var key in addressBook[i]){ 
