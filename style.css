@@ -1,11 +1,13 @@
 html, body {
-    font-family: monospace;
+    font-family: Optima, Segoe, 'Segoe UI', Candara, Calibri, Arial, sans-serif;
     height: 100%;
     width: 100%;
+/*
     background-image: url(Desktop%20-%20Horse.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+*/
 }
 
 * {
@@ -18,15 +20,33 @@ html, body {
     max-width: 50%;
     height: 100%;
     margin: auto;
-   
     opacity: 0.95;
    
 }
 
+#header {
+    position: relative;
+    height: 60px;
+}
+
+#header img {
+    position: absolute;
+    top: 13px;
+}
+
 #inputs { 
-    float:left; 
+    width: 100%;
+    position: relative;
     display: flex;
     align-content: center;
+}
+
+#inputs img {
+    height: 27px;
+}
+
+input[type="text"] {
+   
 }
 
 #table {
@@ -39,29 +59,30 @@ html, body {
 
 /* Table Header */
 .tableHeader {
-    background-color: #537dbf;
+    background-color: #456390;
     color: #ffffff;       
 }
 .tableHeader td {
     border: solid;
-    border-width: 3px;
-    border-color: #8d95ff;
+    border-width: 2px;
+    border-color: #b7b7b7;
     padding: 5px;
+    cursor: pointer;
 }
 .highlighted {
-   background-color: #95b8ed;
+    background-color: #657fa7;
     color: #ffffff;
 }
 
 /* Contact Rows */
 .tableRow {
-    background-color: #d3dded;
+    background-color: #e7f0ff;
     color: #1b3155;  
 }
 
 .tableRow td {
     border: solid;
-    border-width: 3px;
+    border-width: 2px;
     border-color: #acacac;
     padding: 5px;
 }
@@ -69,14 +90,47 @@ html, body {
 a {
     text-decoration: none;
     color: #ffffff;
-    
 }
 
 #searchIcon {
     height: 20px;
+    position: absolute;
+    right: 0;
 }
 
 #searchBox {
     margin-left: 5px;
+    position: absolute;
+    right: 32px;
+    font-size: 20px;
 }
 
+#firstNameHead {
+    width: 25%;
+}
+
+#secondNameHead {
+    width: 25%;
+}
+
+#internalHead {
+    width: 10%;
+}
+
+#externalHead {
+    width: 25%;
+}
+
+/*ADMIN*/
+#adminConsole {
+    width: 20%;
+    height: 40%;
+    position: absolute;
+    top: 10%;
+    left:2%;
+    background-color: #bebebe;
+}
+
+#conTitle {
+    text-align: center;
+}

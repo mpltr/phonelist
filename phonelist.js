@@ -145,7 +145,7 @@ function highlight(header) {
     for (var i=0; i<5; i++) {
     document.getElementById("topRow").getElementsByTagName('td')[i].setAttribute('class', "");
     }
-    header.parentElement.setAttribute('class', "highlighted");    
+    header.setAttribute('class', "highlighted");    
 }
 
 // Sort by ...
@@ -164,6 +164,10 @@ gbi("internalHead").addEventListener("click", function(){
 });
 gbi("externalHead").addEventListener("click", function(){
     ascendDescend("external");
+    highlight(this);
+});
+gbi("office").addEventListener("click", function(){
+    ascendDescend("office");
     highlight(this);
 });
 
@@ -197,7 +201,7 @@ gbi('searchBox').addEventListener("input", searchContacts);
 
 // Load
 function load(){
-    var request = new HttpRequest("/test.txt", handleData);
+    var request = new HttpRequest("test.txt", handleData);
     request.send();
 }
 
@@ -206,7 +210,8 @@ load();
 function handleData(text) {
     var retrievedData = JSON.parse(text);
     addressBook = retrievedData;
-    populate();
+    ascendDescend('FirstName');
+    highlight(gbi('firstNameHead'));
 }
 
 function sendData() {

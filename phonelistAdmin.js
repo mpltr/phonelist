@@ -48,11 +48,12 @@ HttpRequest.prototype.send = function () {
 
 
 // Contact Class
-function Contact(fn, sn, no, em) {
+function Contact(fn, sn, no, em, of) {
     this.FirstName = fn;
     this.SecondName = sn;
     this.internal = no;
     this.external = em;
+    this.office = of;
     this.hidden = false;
 }
 
@@ -62,32 +63,6 @@ var addressBook = new Array();
 // Search Results Array
 var searchResults = new Array();
 
-// Click Add
-gbi("add").addEventListener("click", addCon);
-
-// Add to Address Book Function
-function addCon() {
-    
-    var firstNames = gbi("firstName").value.split("\n");
-    var secondNames = gbi("secondName").value.split("\n");
-    var internals = gbi("internal").value.split("\n");
-    var externals = gbi("external").value.split("\n");
-    for (var j=0; j < firstNames.length; j++){
-        var f = firstNames[j];
-        var s = secondNames[j];
-        var n = internals[j];
-        var e = externals[j];
-        var i = addressBook.length;
-        addressBook[i] = new Contact(f,s,n,e);
-        populate(); 
-        selectAll();
-    }
-    gbi("firstName").value = "";
-    gbi("secondName").value = "";
-    gbi("internal").value = "";
-    gbi("external").value = "";
-};
-
 // Populate contact book
 function populate(){
     var contactRows = gbc("tableRow");
@@ -96,7 +71,7 @@ function populate(){
     }
     
     
-    for(var i = 0; i < addressBook.length; i++){  
+    for(var i = 0; i < exportArray.length; i++){  
             gbi("table").insertRow(-1);
             var rows = gbi("table").rows;
             var lastRow = rows[rows.length - 1];
@@ -106,44 +81,50 @@ function populate(){
             lastRow.insertCell(2);
             lastRow.insertCell(3);
             lastRow.insertCell(4);
+         
 
 
 
-             for (var key in addressBook[i]){ 
-                lastRow.cells[0].innerHTML = '<input type="checkbox" class="delCheck"></input>'
-                if(key == "FirstName"){
-                    lastRow.cells[1].innerHTML = caps(addressBook[i][key]);
+             for (var key in exportArray[i]){ 
+               if(key == "FirstName"){
+                    lastRow.cells[0].innerHTML = caps(exportArray[i][key]);
+                    lastRow.cells[0].contentEditable = "true";
                 } else if(key == "SecondName"){
-                    lastRow.cells[2].innerHTML = caps(addressBook[i][key]);
+                    lastRow.cells[1].innerHTML = caps(exportArray[i][key]);
+                    lastRow.cells[1].contentEditable = "true";
                 } else if(key == "internal"){
-                    lastRow.cells[3].innerHTML = addressBook[i][key];
+                    lastRow.cells[2].innerHTML = exportArray[i][key];
+                    lastRow.cells[2].contentEditable = "true";
                 } else if(key == "external"){
-                    lastRow.cells[4].innerHTML = addressBook[i][key];
+                    lastRow.cells[3].innerHTML = exportArray[i][key];
+                    lastRow.cells[3].contentEditable = "true";
+                } else if(key == "office"){
+                    lastRow.cells[4].innerHTML = exportArray[i][key];
+                    lastRow.cells[4].contentEditable = "true";
                 }
             }
-        if(addressBook[i]["FirstName"] == "admindeletedxfx"){
-            addressBook[i]["hidden"] = true;
+        if(exportArray[i]["FirstName"] == "admindeletedxfx"){
+            exportArray[i]["hidden"] = true;
         }
-        if(addressBook[i]["hidden"] !== false){
+        if(exportArray[i]["hidden"] !== false){
         gbt('tr')[i+1].style.display = "none";
     }
     }
     
     
 }
-populate();
     
 // Sort by String
 function sortBy(key) {
     if (key == "internal"){
-        addressBook.sort(function(a,b){
+        exportArray.sort(function(a,b){
             alc = a[key];
             blc = b[key];            
             return alc > blc ? 1 : alc < blc ? -1 : 0;
         });
         populate();
     } else {        
-        addressBook.sort(function(a,b){
+        exportArray.sort(function(a,b){
             var alc = a[key].toLowerCase(), 
             blc = b[key].toLowerCase();
             return alc > blc ? 1 : alc < blc ? -1 : 0;
@@ -158,7 +139,7 @@ function ascendDescend (columnHeader) {
     sortBy(columnHeader);
     sortedBy = columnHeader;
     } else {
-        addressBook.reverse();
+        exportArray.reverse();
         populate();
     }  
 }
@@ -168,41 +149,8 @@ function highlight(header) {
     for (var i=0; i<5; i++) {
     document.getElementById("topRow").getElementsByTagName('td')[i].setAttribute('class', "");
     }
-    header.parentElement.setAttribute('class', "highlighted");    
+    header.setAttribute('class', "highlighted");    
 }
-
-// Select and delete 
-gbi("delCheckAll").addEventListener("change", selectAll);
-function selectAll(){
-    var tableLength = document.getElementsByTagName('tr').length;
-    if(gbi("delCheckAll").checked){
-       for(var i=0; i <tableLength-1; i++){
-            gbc('delCheck')[i].checked = true;
-        } 
-    } else {
-        for(var i=0; i <tableLength-1; i++){
-            gbc('delCheck')[i].checked = false;
-        }
-    }
-};
-gbi("delete").addEventListener("click", function(){
-    var tableLength = document.getElementsByTagName('tr').length;
-    var limit = tableLength -1;
-    var delCount = 0;
-    for(var i = 0; i < limit; i++){
-        if(gbc('delCheck')[i].checked){
-            addressBook.splice(i-delCount, 1);
-            gbc('delCheck')[i].checked = false;
-            i -= 1;
-            delCount++;
-            }
-        
-        }
-   
-   populate();
-   gbi('delCheckAll').checked = false; 
-});
-
 
 // Sort by ...
 var sortedBy = "";
@@ -222,70 +170,52 @@ gbi("externalHead").addEventListener("click", function(){
     ascendDescend("external");
     highlight(this);
 });
-
-// Search
-function searchContacts(){
-    var searchBoxValue = gbi("searchBox").value.toLowerCase();
-    var searchFor = new RegExp(searchBoxValue);
-    
-    for (var i=0; i<addressBook.length; i++){
-        var match = false;
-        for(var key in addressBook[i]){
-            if(key !== "hidden"){
-                var trial = addressBook[i][key];
-                var trialResult =  searchFor.test(trial);
-                if(trialResult == true){
-                    match = true;
-                }
-
-            }
-            if(match == false){
-                addressBook[i]["hidden"] = true;
-            } else {
-                addressBook[i]["hidden"] = false;
-            }
-        }
-    }
-    populate();
-}
-
-gbi('search').addEventListener("click", searchContacts);
-
-// View All
-
-gbi('viewAll').addEventListener("click", function(){
-    for(var i=0; i < addressBook.length; i++){
-        addressBook[i]["hidden"] = false;
-    }
-    populate();
+gbi("office").addEventListener("click", function(){
+    ascendDescend("office");
+    highlight(this);
 });
 
+// Search
+//function searchContacts(){
+//    var searchBoxValue = gbi("searchBox").value.toLowerCase();
+//    var searchFor = new RegExp(searchBoxValue);
+//    
+//    for (var i=0; i<addressBook.length; i++){
+//        var match = false;
+//        for(var key in addressBook[i]){
+//            if(key !== "hidden"){
+//                var trial = addressBook[i][key].toLowerCase();
+//                var trialResult =  searchFor.test(trial);
+//                if(trialResult == true){
+//                    match = true;
+//                }
+//
+//            }
+//            if(match == false){
+//                addressBook[i]["hidden"] = true;
+//            } else {
+//                addressBook[i]["hidden"] = false;
+//            }
+//        }
+//    }
+//    populate();
+//}
 
-// Cookie
-var expire = new Date();
-expire.setMonth(expire.getMonth() + 6 );
-document.cookie = "UserName=test;expires=" +expire.toUTCString() + ";";
-
-// Save
-gbi('save').addEventListener("click", function(){
-    sendData();
-})
-
+//gbi('searchBox').addEventListener("input", searchContacts);
 
 // Load
 function load(){
-    var request = new HttpRequest("/test.txt", handleData);
+    var request = new HttpRequest("test.txt", handleData);
     request.send();
 }
 
 load();
 
-gbi('load').addEventListener("click", load);
-
 function handleData(text) {
     var retrievedData = JSON.parse(text);
-    addressBook = retrievedData;
-    populate();
+    exportArray = retrievedData;
+    ascendDescend('FirstName');
+    highlight(gbi('firstNameHead'));
 }
 
 function sendData() {
@@ -293,6 +223,48 @@ function sendData() {
     document.write(XPort)
 }
 
+    var exportArray = new Array();
+
+function save(){
+    var tableLength = gbi('table').rows.length;
+    for (var i = 1; i < tableLength; i++){
+        var fn = gbi('table').rows[i].cells[0].innerHTML;
+        var sn = gbi('table').rows[i].cells[1].innerHTML;
+        var int = gbi('table').rows[i].cells[2].innerHTML;
+        var ext = gbi('table').rows[i].cells[3].innerHTML;
+        var off = gbi('table').rows[i].cells[4].innerHTML;
+        exportArray[i-1] = new Contact(fn,sn,int,ext,off);
+}
+    sortBy('FirstName');
+}
+    
+function exportData() {
+    save();
+    var stringyExport = JSON.stringify(exportArray);
+    document.write(stringyExport);
+}
+
+gbi('export').addEventListener("click", exportData);
+
+gbi('save').addEventListener("click", save);
+
+//add
+gbi('add').addEventListener("click", function(){
+    gbi("table").insertRow(1);
+            var rows = gbi("table").rows;
+            var lastRow = rows[1];
+            lastRow.className += " tableRow";
+            lastRow.insertCell(0);
+            lastRow.insertCell(1);
+            lastRow.insertCell(2);
+            lastRow.insertCell(3);
+            lastRow.insertCell(4);
+     lastRow.cells[0].contentEditable = "true";
+ lastRow.cells[1].contentEditable = "true";
+lastRow.cells[2].contentEditable = "true";
+lastRow.cells[3].contentEditable = "true";
+lastRow.cells[4].contentEditable = "true";
+})
 
 
 
