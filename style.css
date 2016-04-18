@@ -123,14 +123,25 @@ a {
 
 /*ADMIN*/
 #adminConsole {
-    width: 20%;
-    height: 40%;
-    position: absolute;
+    width: 10%;
+    position: fixed;
     top: 10%;
-    left:2%;
+    right:2%;
     background-color: #bebebe;
 }
 
 #conTitle {
     text-align: center;
 }
+
+#adminConsole button {
+    width: 90%;
+    margin-left: 5%;
+    height: 40px;
+    background-color: #4ec74e;
+    font-size: 100%;
+    border-radius: 10px;
+    color: #7c7c7c;
+}
+
+

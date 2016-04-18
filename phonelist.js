@@ -81,7 +81,7 @@ function populate(){
             lastRow.insertCell(2);
             lastRow.insertCell(3);
             lastRow.insertCell(4);
-         
+            lastRow.insertCell(5);
 
 
 
@@ -96,8 +96,9 @@ function populate(){
                     lastRow.cells[3].innerHTML = addressBook[i][key];
                 } else if(key == "office"){
                     lastRow.cells[4].innerHTML = addressBook[i][key];
-                }
+                } 
             }
+        
         if(addressBook[i]["FirstName"] == "admindeletedxfx"){
             addressBook[i]["hidden"] = true;
         }
