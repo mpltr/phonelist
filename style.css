@@ -76,12 +76,12 @@ input[type="text"] {
 }
 
 /* Contact Rows */
-.tableRow {
+.tableRows {
     background-color: #e7f0ff;
     color: #1b3155;  
 }
 
-.tableRow td {
+.tableCells {
     border: solid;
     border-width: 2px;
     border-color: #acacac;
@@ -147,6 +147,14 @@ a {
     font-size: 100%;
     border-radius: 5px;
     color: #fddfdf;
+}
+
+.rowHeader {
+    
+}
+
+.rowHeaderHighlighted {
+    background-color: #5b7db4;
 }
 
 

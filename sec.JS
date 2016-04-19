@@ -60,3 +60,61 @@ function createTableFromObjectArray(arrayName, tableName, appendTo){
         }
     }
 } // With Keys as Table Headers
+function fillTableWithArray(arrayName, tableID){
+    var table = gbi(tableID);
+    var arrayLength = arrayName.length;
+    for (var i = 1; i < arrayLength + 1; i++){
+        table.insertRow(i);
+        table.rows[i].className = tableID + "Rows";
+        var keyCount = 0;
+        for (var key in arrayName[i-1]){
+            if (key != "hidden"){
+                table.rows[i].insertCell(keyCount);
+                table.rows[i].cells[keyCount].className = tableID + "Cells";
+                table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
+                keyCount++;
+            }
+        }
+    }
+} // If Table Header is set first
+function clearTable(tableID){
+    while(gbi(tableID).rows[1]){
+        gbi(tableID).deleteRow(1);
+    }
+}
+function searchArrayObjects(searchboxID, arrayName, resultsArray){
+    var searchBoxValue = gbi(searchboxID).value.toLowerCase();
+    var searchExp = new RegExp(searchBoxValue);
+    var arrayLength = arrayName.length;
+    for (var i=0; i < arrayLength; i++){
+        var match = false;
+        for(var key in arrayName[i]){
+            if (match != true){
+                var keyValue = arrayName[i][key].toString().toLowerCase();
+                var tryForMatch = searchExp.test(keyValue);
+                if(tryForMatch == true){
+                    resultsArray.push(arrayName[i]); 
+                    match = true;
+                }
+            }
+        }
+    }
+} // Posts results to second array
+function classHighlight(selectedClass, highlightClass) {
+    var classLength = gbc(selectedClass).length;
+    for (var i = 0; i < classLength; i++){
+        gbc(selectedClass)[i].addEventListener("click", function(){
+            if (gbc(highlightClass)[0]){
+                gbc(highlightClass)[0].className = selectedClass;
+            }
+            this.className = highlightClass;
+        })
+    }
+} 
+function sortObjectArray(sortArray, sortByKey) {
+    sortArray.sort(function(a,b){
+        var alc = a[sortByKey].toLowerCase(); 
+        var blc = b[sortByKey].toLowerCase();
+        return alc > blc ? 1 : alc < blc ? -1 : 0;
+    }); 
+} // Copied, needs research. Have to specify Key to sort by.
