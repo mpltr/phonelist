@@ -40,14 +40,31 @@ HttpRequest.prototype.send = function () {
 function createTableFromArray(arrayName, tableName, appendTo){
     var createdTable = document.createElement('table');
     createdTable.id = tableName;
-    createdTable.insertRow(-1);
+    createdTable.insertRow(0);
+    createdTable.rows[0].id = tableName + "Header";
     gbi(appendTo).appendChild(createdTable);
     var keyCounter = 0;
     for (var key in arrayName[0]){
-        createdTable.rows[0].insertCell(keyCounter);
-        createdTable.rows[0].cells[keyCounter].innerHTML = key;
-        keyCounter++;
-}
+        if (key != 'hidden'){ // added for this use
+            createdTable.rows[0].insertCell(keyCounter);
+            createdTable.rows[0].cells[keyCounter].innerHTML = key;
+            keyCounter++;
+        }
+    }
+    var arrayLength = arrayName.length;
+    for (var i = 1; i < arrayLength; i++){
+        createdTable.insertRow(i);
+        createdTable.rows[i].className = tableName + "Rows";
+        keyCounter = 0;
+        for (var key in arrayName[i]){
+             if (key != 'hidden'){ // added for this use
+                createdTable.rows[i].insertCell(keyCounter);
+                var keyVal = arrayName[i][key];
+                createdTable.rows[i].cells[keyCounter].innerHTML = keyVal;
+                keyCounter++;
+             }
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
