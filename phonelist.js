@@ -1,19 +1,14 @@
-// Get Element By ID shortcut
+
+//Library////////////////////////////////////////////////////////////////////
 function gbi(id) {
     return document.getElementById(id);
 }
-
-// Get Element By Class shortcut
 function gbc(cl) {
     return document.getElementsByClassName(cl);
 }
-
-// Get Element By Class shortcut
 function gbt(tag) {
     return document.getElementsByTagName(tag);
 }
-
-//Capitalise First Letter of string
 function caps(string) {
     if(string == ""){
         return "N/A";
@@ -23,7 +18,6 @@ function caps(string) {
     return seperate.join("");
     }
 }
-
 function HttpRequest(url, callback) {
     this.request = new XMLHttpRequest();
     this.request.open("GET", url);
@@ -40,15 +34,25 @@ function HttpRequest(url, callback) {
     }
     this.request.onreadystatechange = reqReadyStateChange;
 }
-
 HttpRequest.prototype.send = function () {
     this.request.send(null);
 };
+function createTableFromArray(arrayName, tableName, appendTo){
+    var createdTable = document.createElement('table');
+    createdTable.id = tableName;
+    createdTable.insertRow(-1);
+    gbi(appendTo).appendChild(createdTable);
+    var keyCounter = 0;
+    for (var key in arrayName[0]){
+        createdTable.rows[0].insertCell(keyCounter);
+        createdTable.rows[0].cells[keyCounter].innerHTML = key;
+        keyCounter++;
+}
+}
 
-
-
+///////////////////////////////////////////////////////////////////////////////////
 // Contact Class
-function Contact(fn, sn, no, em) {
+function Contact(fn, sn, no, em, of) {
     this.FirstName = fn;
     this.SecondName = sn;
     this.internal = no;
@@ -59,6 +63,7 @@ function Contact(fn, sn, no, em) {
 
 // Address Book Array
 var addressBook = new Array();
+
 
 // Search Results Array
 var searchResults = new Array();
@@ -211,12 +216,16 @@ function handleData(text) {
     addressBook = retrievedData;
     ascendDescend('FirstName');
     highlight(gbi('firstNameHead'));
+    createTableFromArray(addressBook, 'testingtable', "testingDiv");
 }
 
 function sendData() {
     var XPort = JSON.stringify(addressBook);
     document.write(XPort)
 }
+
+
+
 
 
 
