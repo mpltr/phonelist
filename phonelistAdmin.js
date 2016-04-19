@@ -1,45 +1,3 @@
-// Shortcut Library
-// Get By...
-function gbi(id) {
-    return document.getElementById(id);
-}
-function gbc(cl) {
-    return document.getElementsByClassName(cl);
-}
-function gbt(tag) {
-    return document.getElementsByTagName(tag);
-}
-//Capitalise First Letter of string
-function caps(string) {
-    if(string == ""){
-        return "N/A";
-    } else {
-    var seperate = string.split("");
-    seperate[0] = seperate[0].toUpperCase();
-    return seperate.join("");
-    }
-}
-//httpRequest
-function HttpRequest(url, callback) {
-    this.request = new XMLHttpRequest();
-    this.request.open("GET", url);
-    var tempRequest = this.request;
-    function reqReadyStateChange() {
-        if (tempRequest.readyState == 4) {
-            if (tempRequest.status == 200) {
-                callback(tempRequest.responseText);
-            } else {
-                alert("An error occurred trying to contact the server.");
-                alert(tempRequest.status);
-            }
-        }
-    }
-    this.request.onreadystatechange = reqReadyStateChange;
-}
-HttpRequest.prototype.send = function () {
-    this.request.send(null);
-};
-
 // Contact Class
 function Contact(fn, sn, no, em, of) {
     this.FirstName = fn;
@@ -205,7 +163,7 @@ gbi('searchBox').addEventListener("input", function(){
 
 // Load
 function load(){
-    var request = new HttpRequest("test.txt", handleData);
+    var request = new HttpRequest("contacts.txt", handleData);
     request.send();
 }
 load();
