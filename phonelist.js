@@ -11,7 +11,6 @@ function Contact(fn, sn, no, em, of) {
 // Address Book Array
 var addressBook = new Array();
 
-
 // Search Results Array
 var searchResults = new Array();
 

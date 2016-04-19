@@ -35,7 +35,7 @@ function HttpRequest(url, callback) {
 HttpRequest.prototype.send = function () {
     this.request.send(null);
 };
-function createTableFromArray(arrayName, tableName, appendTo){
+function createTableFromObjectArray(arrayName, tableName, appendTo){
     var createdTable = document.createElement('table');
     createdTable.id = tableName;
     createdTable.insertRow(0);
