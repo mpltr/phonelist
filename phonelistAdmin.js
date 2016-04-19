@@ -232,8 +232,8 @@ function save(){
 }
     
 function exportData() {
-    sortBy("FirstName");
     save();
+    sortBy("FirstName");
     var stringyExport = JSON.stringify(exportArray);
     var a=document.createElement('a');
     a.href='data:text/plain;base64,'+btoa(stringyExport);
@@ -255,11 +255,14 @@ gbi('add').addEventListener("click", function(){
             lastRow.insertCell(2);
             lastRow.insertCell(3);
             lastRow.insertCell(4);
+            lastRow.insertCell(5);
      lastRow.cells[0].contentEditable = "true";
  lastRow.cells[1].contentEditable = "true";
 lastRow.cells[2].contentEditable = "true";
 lastRow.cells[3].contentEditable = "true";
 lastRow.cells[4].contentEditable = "true";
+lastRow.cells[5].innerHTML = "<input type='checkbox' name='selector' class='tickMe'>";
+    
 });
 
 gbi('delete').addEventListener("click", function(){

@@ -200,7 +200,7 @@ gbi('searchBox').addEventListener("input", searchContacts);
 
 // Load
 function load(){
-    var request = new HttpRequest("test.txt", handleData);
+    var request = new HttpRequest("contacts.txt", handleData);
     request.send();
 }
 
