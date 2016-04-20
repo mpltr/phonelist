@@ -84,22 +84,32 @@ function clearTable(tableID){
 }
 function searchArrayObjects(searchboxID, arrayName, resultsArray){
     var searchBoxValue = gbi(searchboxID).value.toLowerCase();
-    var searchExp = new RegExp(searchBoxValue);
+    if (searchBoxValue === ""){
+        var searchCriteria = searchBoxValue.match(/.*/);
+    } else {
+        var searchCriteria = searchBoxValue.match(/w+/g);
+    }
     var arrayLength = arrayName.length;
     for (var i=0; i < arrayLength; i++){
-        var match = false;
-        for(var key in arrayName[i]){
-            if (match != true){
-                var keyValue = arrayName[i][key].toString().toLowerCase();
-                var tryForMatch = searchExp.test(keyValue);
-                if(tryForMatch == true){
-                    resultsArray.push(arrayName[i]); 
-                    match = true;
+        breakout:
+        for(var key in arrayName[i]){      
+            var searchExp = new RegExp(searchCriteria[0]);
+            var keyValue = arrayName[i][key].toString().toLowerCase();
+            var tryForMatch = searchExp.test(keyValue);
+            if(tryForMatch == true){
+                for(var key in arrayName[i]){      
+                    var searchExp = new RegExp(searchCriteria[1]);
+                    var keyValue = arrayName[i][key].toString().toLowerCase();
+                    var tryForMatch = searchExp.test(keyValue);
+                    if(tryForMatch == true){
+                        resultsArray.push(arrayName[i]);
+                        break breakout;
+                    }
                 }
             }
         }
     }
-} // Posts results to second array
+}
 function classHighlight(selectedClass, highlightClass) {
     var classLength = gbc(selectedClass).length;
     for (var i = 0; i < classLength; i++){
@@ -118,3 +128,21 @@ function sortObjectArray(sortArray, sortByKey) {
         return alc > blc ? 1 : alc < blc ? -1 : 0;
     }); 
 } // Copied, needs research. Have to specify Key to sort by.
+function searchArrayObjects(searchboxID, arrayName, resultsArray){
+    var searchBoxValue = gbi(searchboxID).value.toLowerCase();
+    var searchExp = new RegExp(searchBoxValue);
+    var arrayLength = arrayName.length;
+    for (var i=0; i < arrayLength; i++){
+        var match = false;
+        for(var key in arrayName[i]){
+            if (match != true){
+                var keyValue = arrayName[i][key].toString().toLowerCase();
+                var tryForMatch = searchExp.test(keyValue);
+                if(tryForMatch == true){
+                    resultsArray.push(arrayName[i]); 
+                    match = true;
+                }
+            }
+        }
+    }
+} // Posts results to second array

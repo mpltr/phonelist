@@ -22,6 +22,24 @@ gbi('searchBox').addEventListener("input", function(){
 });
 
 classHighlight('rowHeader', 'rowHeaderHighlighted');
+
+
+
+
+    
+    
+//    for (var i=0; i < arrayLength; i++){
+//        var searchMatch = 0;
+//        for (var j = 0; j < numOfSearches; j++){
+//             if (searchMatch === numOfSearches){
+//                    resultsArray.push(arrayName[i]);
+//                    break;
+//                }
+//            }
+//        } 
+//                
+//    }
+//} // Posts results to second array
   
 //// Sort by String
 //function sortBy(key) {
