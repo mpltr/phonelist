@@ -110,17 +110,13 @@ function searchArrayObjects(searchboxID, arrayName, resultsArray){
         }
     }
 }
-function classHighlight(selectedClass, highlightClass) {
-    var classLength = gbc(selectedClass).length;
-    for (var i = 0; i < classLength; i++){
-        gbc(selectedClass)[i].addEventListener("click", function(){
-            if (gbc(highlightClass)[0]){
-                gbc(highlightClass)[0].className = selectedClass;
-            }
-            this.className = highlightClass;
-        })
+function addHighlight(selectedClass, highlightClass, target) {
+    if (gbc(highlightClass)[0]){
+    gbc(highlightClass)[0].className = selectedClass;
     }
-} 
+    target.className = "";
+    target.className = highlightClass;
+} // Needs an event listener on the selectedClass to work
 function sortObjectArray(sortArray, sortByKey) {
     sortArray.sort(function(a,b){
         var alc = a[sortByKey].toLowerCase(); 
@@ -128,21 +124,28 @@ function sortObjectArray(sortArray, sortByKey) {
         return alc > blc ? 1 : alc < blc ? -1 : 0;
     }); 
 } // Copied, needs research. Have to specify Key to sort by.
-function searchArrayObjects(searchboxID, arrayName, resultsArray){
-    var searchBoxValue = gbi(searchboxID).value.toLowerCase();
-    var searchExp = new RegExp(searchBoxValue);
-    var arrayLength = arrayName.length;
-    for (var i=0; i < arrayLength; i++){
-        var match = false;
-        for(var key in arrayName[i]){
-            if (match != true){
-                var keyValue = arrayName[i][key].toString().toLowerCase();
-                var tryForMatch = searchExp.test(keyValue);
-                if(tryForMatch == true){
-                    resultsArray.push(arrayName[i]); 
-                    match = true;
-                }
-            }
-        }
-    }
-} // Posts results to second array
+//function searchArrayObjects(searchboxID, arrayName, resultsArray){
+//    var searchBoxValue = gbi(searchboxID).value.toLowerCase();
+//    var searchExp = new RegExp(searchBoxValue);
+//    var arrayLength = arrayName.length;
+//    for (var i=0; i < arrayLength; i++){
+//        var match = false;
+//        for(var key in arrayName[i]){
+//            if (match != true){
+//                var keyValue = arrayName[i][key].toString().toLowerCase();
+//                var tryForMatch = searchExp.test(keyValue);
+//                if(tryForMatch == true){
+//                    resultsArray.push(arrayName[i]); 
+//                    match = true;
+//                }
+//            }
+//        }
+//    }
+//} // Posts results to second array
+function sortBy(key) {        
+    searchResults.sort(function(a,b){
+        var alc = a[key].toLowerCase(), 
+        blc = b[key].toLowerCase();
+        return alc > blc ? 1 : alc < blc ? -1 : 0;
+    });  
+} // Strings only
