@@ -1,3 +1,63 @@
+var addressBook = new Array();
+var searchResults = new Array();
+function loadContacts(){
+    var request = new HttpRequest("contacts.txt", handleData);
+    request.send();
+}
+loadContacts();
+function handleData(text) {
+    var retrievedData = JSON.parse(text);
+    addressBook = retrievedData;
+    searchArrayObjects('searchBox', addressBook, searchResults);
+    sortObjectArray(searchResults, 'FirstName');
+    fillTableWithArrayEditable(searchResults, 'table');
+    addHighlight('rowHeader', 'rowHeaderHighlighted', gbc('rowHeader')[0]);
+    monitorTopRow('table', onClicking);
+}
+gbi('searchBox').addEventListener("input", function(){
+    save();
+    clearTable('table');
+    searchResults = [];
+    searchArrayObjects('searchBox', addressBook, searchResults);
+    fillTableWithArrayEditable(searchResults, 'table');
+});
+function onClicking(thisTab){
+    save();
+    var currentClass = thisTab.className;
+    if (currentClass === 'rowHeader') {
+        addHighlight('rowHeader', 'rowHeaderHighlighted', thisTab);
+        var highlightedKey = gbc('rowHeaderHighlighted')[0].id;
+        searchArrayObjects('searchBox', addressBook, searchResults);
+        sortObjectArray(searchResults, highlightedKey);
+        clearTable('table');
+        fillTableWithArrayEditable(searchResults, 'table');
+    } else if (currentClass === 'rowHeaderHighlighted'){
+        searchArrayObjects('searchBox', addressBook, searchResults);
+        searchResults.reverse();
+        clearTable('table');
+        fillTableWithArrayEditable(searchResults, 'table');
+    } else {
+        alert('error');
+    }
+} //function for monitorTopRow
+
+// Admin //
+function save() {
+    addressBook = [];
+    searchResults = [];
+    var tableLength = gbi('table').rows.length;
+    for (var i = 1; i < tableLength; i++){
+        var cellNum = gbi('table').rows[i].cells;
+        var fn = cellNum[0].innerHTML;
+        var sn = cellNum[1].innerHTML;
+        var no = cellNum[2].innerHTML;
+        var em = cellNum[3].innerHTML;
+        var of = cellNum[4].innerHTML;
+        addressBook[i-1] = new Contact(fn, sn, no, em, of);
+    }
+}
+gbi('add').addEventListener("click", save);
+
 // Contact Class
 function Contact(fn, sn, no, em, of) {
     this.FirstName = fn;
@@ -5,12 +65,14 @@ function Contact(fn, sn, no, em, of) {
     this.internal = no;
     this.external = em;
     this.office = of;
-    this.hidden = false;
 }
-// Address Book Array
-var addressBook = new Array();
-// Search Results Array
-var searchResults = new Array();
+
+
+
+//// Address Book Array
+//var addressBook = new Array();
+//// Search Results Array
+//var searchResults = new Array();
 // Populate contact book
 //function populate(){
 //    var contactRows = gbc("tableRow");
@@ -168,77 +230,77 @@ var searchResults = new Array();
 //}
 //load();
 
-function handleData(text) {
-    var retrievedData = JSON.parse(text);
-    exportArray = retrievedData;
-    ascendDescend('FirstName');
-    highlight(gbi('firstNameHead'));
-}
-
-var exportArray = new Array();
-
-function save(){
-    var tableLength = gbi('table').rows.length;
-    for (var i = 1; i < tableLength; i++){
-        var fn = gbi('table').rows[i].cells[0].innerHTML;
-        var sn = gbi('table').rows[i].cells[1].innerHTML;
-        var int = gbi('table').rows[i].cells[2].innerHTML;
-        var ext = gbi('table').rows[i].cells[3].innerHTML;
-        var off = gbi('table').rows[i].cells[4].innerHTML;
-        exportArray[i-1] = new Contact(fn,sn,int,ext,off);
-}
-}
-    
-function exportData() {
-    save();
-    sortBy("FirstName");
-    var stringyExport = JSON.stringify(exportArray);
-    var a=document.createElement('a');
-    a.href='data:text/plain;base64,'+btoa(stringyExport);
-    a.textContent='download';
-    a.download='test.txt';
-    a.click();
-}
-// Export Event Listener
-gbi('export').addEventListener("click", exportData);
-
-//add Event Listener
-gbi('add').addEventListener("click", function(){
-    gbi("table").insertRow(1);
-            var rows = gbi("table").rows;
-            var lastRow = rows[1];
-            lastRow.className += " tableRow";
-            lastRow.insertCell(0);
-            lastRow.insertCell(1);
-            lastRow.insertCell(2);
-            lastRow.insertCell(3);
-            lastRow.insertCell(4);
-            lastRow.insertCell(5);
-     lastRow.cells[0].contentEditable = "true";
- lastRow.cells[1].contentEditable = "true";
-lastRow.cells[2].contentEditable = "true";
-lastRow.cells[3].contentEditable = "true";
-lastRow.cells[4].contentEditable = "true";
-lastRow.cells[5].innerHTML = "<input type='checkbox' name='selector' class='tickMe'>";
-    
-});
-
-gbi('delete').addEventListener("click", function(){
-    var tabLen = gbi('table').rows.length -1;
-    for(var i = 0; i < tabLen; i++){
-        var tempo = gbc('tickMe')[i];
-        if(tempo.checked){
-            gbi('table').deleteRow(i+1);
-            i -= 1;
-            tabLen -= 1;
-        }
-    }
-})
-
-
-
-
- 
+//function handleData(text) {
+//    var retrievedData = JSON.parse(text);
+//    exportArray = retrievedData;
+//    ascendDescend('FirstName');
+//    highlight(gbi('firstNameHead'));
+//}
+//
+//var exportArray = new Array();
+//
+//function save(){
+//    var tableLength = gbi('table').rows.length;
+//    for (var i = 1; i < tableLength; i++){
+//        var fn = gbi('table').rows[i].cells[0].innerHTML;
+//        var sn = gbi('table').rows[i].cells[1].innerHTML;
+//        var int = gbi('table').rows[i].cells[2].innerHTML;
+//        var ext = gbi('table').rows[i].cells[3].innerHTML;
+//        var off = gbi('table').rows[i].cells[4].innerHTML;
+//        exportArray[i-1] = new Contact(fn,sn,int,ext,off);
+//}
+//}
+//    
+//function exportData() {
+//    save();
+//    sortBy("FirstName");
+//    var stringyExport = JSON.stringify(exportArray);
+//    var a=document.createElement('a');
+//    a.href='data:text/plain;base64,'+btoa(stringyExport);
+//    a.textContent='download';
+//    a.download='test.txt';
+//    a.click();
+//}
+//// Export Event Listener
+//gbi('export').addEventListener("click", exportData);
+//
+////add Event Listener
+//gbi('add').addEventListener("click", function(){
+//    gbi("table").insertRow(1);
+//            var rows = gbi("table").rows;
+//            var lastRow = rows[1];
+//            lastRow.className += " tableRow";
+//            lastRow.insertCell(0);
+//            lastRow.insertCell(1);
+//            lastRow.insertCell(2);
+//            lastRow.insertCell(3);
+//            lastRow.insertCell(4);
+//            lastRow.insertCell(5);
+//     lastRow.cells[0].contentEditable = "true";
+// lastRow.cells[1].contentEditable = "true";
+//lastRow.cells[2].contentEditable = "true";
+//lastRow.cells[3].contentEditable = "true";
+//lastRow.cells[4].contentEditable = "true";
+//lastRow.cells[5].innerHTML = "<input type='checkbox' name='selector' class='tickMe'>";
+//    
+//});
+//
+//gbi('delete').addEventListener("click", function(){
+//    var tabLen = gbi('table').rows.length -1;
+//    for(var i = 0; i < tabLen; i++){
+//        var tempo = gbc('tickMe')[i];
+//        if(tempo.checked){
+//            gbi('table').deleteRow(i+1);
+//            i -= 1;
+//            tabLen -= 1;
+//        }
+//    }
+//})
+//
+//
+//
+//
+// 
 
 
 

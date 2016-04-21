@@ -77,6 +77,27 @@ function fillTableWithArray(arrayName, tableID){
         }
     }
 } // If Table Header is set first
+function fillTableWithArrayEditable(arrayName, tableID){
+    var table = gbi(tableID);
+    var arrayLength = arrayName.length;
+    for (var i = 1; i < arrayLength + 1; i++){
+        table.insertRow(i);
+        table.rows[i].className = tableID + "Rows";
+        var keyCount = 0;
+        for (var key in arrayName[i-1]){
+            if (key != "hidden"){
+                table.rows[i].insertCell(keyCount);
+                table.rows[i].cells[keyCount].contentEditable = true;
+                table.rows[i].cells[keyCount].className = tableID + "Cells";
+                table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
+                keyCount++;
+            }
+        }
+        table.rows[i].insertCell(keyCount);
+        table.rows[i].cells[keyCount].className = tableID + "Cells";
+        table.rows[i].cells[keyCount].innerHTML = "<input type='checkbox' class='delCheck'>";
+    }
+} //Same as above but cells are ContentEditable and contains checkboxes
 function clearTable(tableID){
     while(gbi(tableID).rows[1]){
         gbi(tableID).deleteRow(1);
