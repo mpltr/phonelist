@@ -1,12 +1,12 @@
 function gbi(id) {
     return document.getElementById(id);
-}
+} //Get by ID Shortcut
 function gbc(cl) {
     return document.getElementsByClassName(cl);
-}
+} //Get by Class Shortcut
 function gbt(tag) {
     return document.getElementsByTagName(tag);
-}
+} //Get by Tagname Shortcut
 function caps(string) {
     if(string == ""){
         return "N/A";
@@ -15,7 +15,7 @@ function caps(string) {
     seperate[0] = seperate[0].toUpperCase();
     return seperate.join("");
     }
-}
+} //Capitalises first letter of a string
 function HttpRequest(url, callback) {
     this.request = new XMLHttpRequest();
     this.request.open("GET", url);
@@ -31,7 +31,7 @@ function HttpRequest(url, callback) {
         }
     }
     this.request.onreadystatechange = reqReadyStateChange;
-}
+} 
 HttpRequest.prototype.send = function () {
     this.request.send(null);
 };
@@ -59,7 +59,7 @@ function createTableFromObjectArray(arrayName, tableName, appendTo){
                 keyCounter++;
         }
     }
-} // With Keys as Table Headers
+} //Takes array of objects and lays them out in a table then attaches them to selected element.
 function fillTableWithArray(arrayName, tableID){
     var table = gbi(tableID);
     var arrayLength = arrayName.length;
@@ -81,13 +81,13 @@ function clearTable(tableID){
     while(gbi(tableID).rows[1]){
         gbi(tableID).deleteRow(1);
     }
-}
+} //Clears a table apart from header    
 function searchArrayObjects(searchboxID, arrayName, resultsArray){
     var searchBoxValue = gbi(searchboxID).value.toLowerCase();
     if (searchBoxValue === ""){
         var searchCriteria = searchBoxValue.match(/.*/);
     } else {
-        var searchCriteria = searchBoxValue.match(/w+/g);
+        var searchCriteria = searchBoxValue.match(/\w+/g);
     }
     var arrayLength = arrayName.length;
     for (var i=0; i < arrayLength; i++){
@@ -109,43 +109,26 @@ function searchArrayObjects(searchboxID, arrayName, resultsArray){
             }
         }
     }
-}
+} //Searches an array of objects for 1-2 key words and passes them to another array.
 function addHighlight(selectedClass, highlightClass, target) {
     if (gbc(highlightClass)[0]){
     gbc(highlightClass)[0].className = selectedClass;
     }
     target.className = "";
     target.className = highlightClass;
-} // Needs an event listener on the selectedClass to work
+} //Puts a chosen highlightClass onto a clicked item and clears any highlights on items in the same selectedClass
 function sortObjectArray(sortArray, sortByKey) {
     sortArray.sort(function(a,b){
         var alc = a[sortByKey].toLowerCase(); 
         var blc = b[sortByKey].toLowerCase();
         return alc > blc ? 1 : alc < blc ? -1 : 0;
     }); 
-} // Copied, needs research. Have to specify Key to sort by.
-//function searchArrayObjects(searchboxID, arrayName, resultsArray){
-//    var searchBoxValue = gbi(searchboxID).value.toLowerCase();
-//    var searchExp = new RegExp(searchBoxValue);
-//    var arrayLength = arrayName.length;
-//    for (var i=0; i < arrayLength; i++){
-//        var match = false;
-//        for(var key in arrayName[i]){
-//            if (match != true){
-//                var keyValue = arrayName[i][key].toString().toLowerCase();
-//                var tryForMatch = searchExp.test(keyValue);
-//                if(tryForMatch == true){
-//                    resultsArray.push(arrayName[i]); 
-//                    match = true;
-//                }
-//            }
-//        }
-//    }
-//} // Posts results to second array
-function sortBy(key) {        
-    searchResults.sort(function(a,b){
-        var alc = a[key].toLowerCase(), 
-        blc = b[key].toLowerCase();
-        return alc > blc ? 1 : alc < blc ? -1 : 0;
-    });  
-} // Strings only
+} // Copied, needs research. Sort Object Array by specified key
+function monitorTopRow(tableID, callFunction) {
+    var numOfCols = gbi(tableID).rows[0].cells.length;
+    for (var i = 0; i < numOfCols; i++){
+        gbi(tableID).rows[0].cells[i].addEventListener("click", function(){
+            callFunction(this);
+        })
+    }
+} //Monitor top row of table with tableID and process callFunction when cell is clicked

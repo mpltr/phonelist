@@ -12,8 +12,7 @@ function handleData(text) {
     sortObjectArray(searchResults, 'FirstName');
     fillTableWithArray(searchResults, 'table');
     addHighlight('rowHeader', 'rowHeaderHighlighted', gbc('rowHeader')[0]);
-    monitorHighlightedTab();
-    monitorUnhighlightedTab();
+    monitorTopRow('table', onClicking);
 }
 gbi('searchBox').addEventListener("input", function(){
     clearTable('table');
@@ -21,31 +20,19 @@ gbi('searchBox').addEventListener("input", function(){
     searchArrayObjects('searchBox', addressBook, searchResults);
     fillTableWithArray(searchResults, 'table');
 });
-function monitorUnhighlightedTab(){
-    var unhighlightLength = gbc('rowHeader').length;
-    for (var i = 0; i < unhighlightLength; i++){
-        gbc('rowHeader')[i].addEventListener("click", function(){
-            addHighlight('rowHeader', 'rowHeaderHighlighted', this);
-            var highlightedKey = gbc('rowHeaderHighlighted')[0].id;
-            sortBy(highlightedKey);
-            clearTable('table');
-            fillTableWithArray(searchResults, 'table');
-            monitorHighlightedTab();
-        })
-    }
-}
-function monitorHighlightedTab(){
-    gbc('rowHeaderHighlighted')[0].addEventListener("click", function(){
+function onClicking(thisTab){
+    var currentClass = thisTab.className;
+    if (currentClass === 'rowHeader') {
+        addHighlight('rowHeader', 'rowHeaderHighlighted', thisTab);
+        var highlightedKey = gbc('rowHeaderHighlighted')[0].id;
+        sortObjectArray(searchResults, highlightedKey);
+        clearTable('table');
+        fillTableWithArray(searchResults, 'table');
+    } else if (currentClass === 'rowHeaderHighlighted'){
         searchResults.reverse();
         clearTable('table');
         fillTableWithArray(searchResults, 'table');
-    })
-}
-function sortBy(key) {        
-    searchResults.sort(function(a,b){
-        var alc = a[key].toLowerCase(), 
-        blc = b[key].toLowerCase();
-        return alc > blc ? 1 : alc < blc ? -1 : 0;
-    });  
-}
-
+    } else {
+        alert('error');
+    }
+} //function for monitorTopRow
