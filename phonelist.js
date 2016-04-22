@@ -13,7 +13,7 @@ function handleData(text) {
     fillTableWithArray(searchResults, 'table');
     addHighlight('rowHeader', 'rowHeaderHighlighted', gbc('rowHeader')[0]);
     monitorTopRow('table', onClicking);
-    gbi('wrapper').style.opacity = '1';
+	gbi('loading').style.display = "none";
 }
 gbi('searchBox').addEventListener("input", function(){
     clearTable('table');
