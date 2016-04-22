@@ -71,12 +71,15 @@ html, body {
 .tableRows {
     background-color: #e7f0ff;
     color: #1b3155;  
+    height: 30px;
 }
 .tableCells {
     border: solid;
     border-width: 2px;
     border-color: #acacac;
     padding: 5px;
+    height: 30px;
+    margin: 0;
 }
 #searchIcon {
     height: 20px;
@@ -130,8 +133,6 @@ a {
     border-radius: 5px;
     color: #fddfdf;
 }
-
-
 
 
 
