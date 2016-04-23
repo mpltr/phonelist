@@ -37,3 +37,24 @@ function onClicking(thisTab){
         alert('error');
     }
 } //function for monitorTopRow
+function scrollFunction() {
+	if(document.body.scrollTop == 0) {
+		gbi('scrollUp').style.display = "none";
+	} else {
+		gbi('scrollUp').style.display = "block";
+	}
+}
+window.onscroll = scrollFunction;
+gbi('scrollUp').addEventListener("click", function(){
+//	document.body.scrollTop = document.documentElement.scrollTop = 0;
+	scrollToTop(500);
+})
+function scrollToTop(scrollDuration) {
+	var scrollStep = -window.scrollY / (scrollDuration / 15),
+		scrollInterval = setInterval(function(){
+			if ( window.scrollY != 0 ) {
+				window.scrollBy( 0, scrollStep );
+			}
+			else clearInterval(scrollInterval); 
+		},15);
+}

@@ -11,10 +11,31 @@ function handleData(text) {
     searchArrayObjects('searchBox', addressBook, searchResults);
     sortObjectArray(searchResults, 'FirstName');
     fillTableWithArrayEditable(searchResults, 'table');
+	gbi('loading').style.display = "none";
 //    addHighlight('rowHeader', 'rowHeaderHighlighted', gbc('rowHeader')[0]);
 //    monitorTopRow('table', onClicking);
 }
-
+function scrollFunction() {
+	if(document.body.scrollTop == 0) {
+		gbi('scrollUp').style.display = "none";
+	} else {
+		gbi('scrollUp').style.display = "block";
+	}
+}
+window.onscroll = scrollFunction;
+gbi('scrollUp').addEventListener("click", function(){
+	//	document.body.scrollTop = document.documentElement.scrollTop = 0;
+	scrollToTop(500);
+})
+function scrollToTop(scrollDuration) {
+	var scrollStep = -window.scrollY / (scrollDuration / 15),
+		scrollInterval = setInterval(function(){
+			if ( window.scrollY != 0 ) {
+				window.scrollBy( 0, scrollStep );
+			}
+			else clearInterval(scrollInterval); 
+		},15);
+}
 ///// Admin //////
 gbi('searchBox').style.display = "none";
 gbi('searchIcon').style.display = "none";
@@ -82,8 +103,22 @@ function exportData() {
     a.click();
 }
 // Export Event Listener
-gbi('export').addEventListener("click", exportData);
+gbi('export').addEventListener("click", sendData);
 
+function sendData(){
+	save();
+	var data = JSON.stringify(searchResults);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			alert("Phonelist successfully exported!")
+		}
+	}
+	xmlhttp.open("POST","processExport.php",true);
+	//Must add this request header to XMLHttpRequest request for POST
+	xmlhttp.setRequestHeader("Content-type", "application/JSON");
+	xmlhttp.send(data);
+}
 
 
 
