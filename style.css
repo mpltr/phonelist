@@ -34,8 +34,8 @@ html, body {
 	position: fixed;
 	right: 5%;
 	bottom: 10%;
-	width: 70px;
-	height: 70px;
+	width: 100px;
+	height: 100px;
 	opacity: 0.4;
 	display: none;
 }
@@ -85,14 +85,27 @@ html, body {
     border-color: #b7b7b7;
     padding: 5px;
     cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .rowHeaderHighlighted {
-    background-color: #426fad;
+    background-color: #43699d;
     border: solid;
+	color: #ffffff;
     border-width: 2px;
     border-color: #b7b7b7;
     padding: 5px;
     cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 /* Contact Rows */
 .tableRows {
@@ -169,16 +182,31 @@ a {
 	z-index: 99;
 	align-content: center;
 	justify-content: center;
+	display: none;
 }
 #confirm {
 	position: fixed;
 	left: calc(50% - 150px);
 	top: calc(50% - 100px);
 	width: 300px;
-	height: 200px;
-	background-color: #04d4b4;
+	height: 110px;
+	background-color: #b4afaf;
+	color: #5d5d5d;
 	opacity: 1.0;
 	z-index: 100;
+	border-radius: 5px;
+	display: none;
+}
+#confirmMessage {
+	text-align: center;
+	padding: 5px;
+}
+.confirmButton {
+	width: 117px;
+	height: 30px;
+	margin-left: 7%;
+	border-radius: 5px;
+	color: #5d5d5d;
 }
 
 
