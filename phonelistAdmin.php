@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<?php include("password_protect.php"); ?>
 <html lan="en">
     <head>
         <meta charset="utf-8" />

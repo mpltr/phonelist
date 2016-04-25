@@ -1,7 +1,8 @@
 var addressBook = new Array();
 var searchResults = new Array();
-function loadContacts(){
-    var request = new HttpRequest("contacts.txt", handleData);
+displaySearchBox();
+displayTable();
+function loadContacts(){    var request = new HttpRequest("contacts.txt", handleData);
     request.send();
 }
 loadContacts();
@@ -38,23 +39,43 @@ function onClicking(thisTab){
     }
 } //function for monitorTopRow
 function scrollFunction() {
-	if(document.body.scrollTop == 0) {
+	if(document.documentElement.scrollTop == 0) {
 		gbi('scrollUp').style.display = "none";
 	} else {
 		gbi('scrollUp').style.display = "block";
 	}
 }
-window.onscroll = scrollFunction;
-gbi('scrollUp').addEventListener("click", function(){
-//	document.body.scrollTop = document.documentElement.scrollTop = 0;
-	scrollToTop(500);
-})
 function scrollToTop(scrollDuration) {
-	var scrollStep = -window.scrollY / (scrollDuration / 15),
-		scrollInterval = setInterval(function(){
-			if ( window.scrollY != 0 ) {
+    var vertical;
+    if(-window.scrollY){
+	    vertical = -window.scrollY;
+    } else {
+        vertical = -window.pageYOffset;
+    }
+    var scrollStep = vertical / (scrollDuration / 15); 
+	var	scrollInterval = setInterval(function(){
+        if(-window.scrollY){
+            var vertCheck = window.scrollY;
+        } else {
+            var vertCheck = window.pageYOffset;
+        }
+			if ( vertCheck != 0 ) {
 				window.scrollBy( 0, scrollStep );
 			}
 			else clearInterval(scrollInterval); 
 		},15);
+}
+
+window.onscroll = function() {scrollFunction();};
+gbi('scrollUp').addEventListener("click", function(){
+//	document.body.scrollTop = document.documentElement.scrollTop = 0;
+	scrollToTop(500);
+})
+
+function displayTable(){
+    gbi('table').innerHTML = '<tr id="topRow" class="tableHeader"><td id="FirstName" class="rowHeader">First Name</td><td id="SecondName" class="rowHeader">Second Name</td><td id="internal" class="rowHeader">Internal</td><td id="external" class="rowHeader">Direct / Mobile</td><td id="office" class="rowHeader">Office</td></tr>';
+}
+
+function displaySearchBox(){
+    gbi('inputs').innerHTML = '<img src="PL.png"/><img id="searchIcon" src="search.png"/><input type="text" id="searchBox" autofocus></input>';
 }
