@@ -148,11 +148,12 @@ html, body {
     width: 100%;
     position: fixed;
     bottom: 0;
-    background-color: #717176;
+    background-color: #afafaf;
     z-index: 5;
     margin: 0;
     padding: 0;
     text-align: center;
+    box-shadow: 0 0px 30px 0px #b4b4b4;
 }
 a {
     text-decoration: none;
@@ -166,11 +167,28 @@ a {
     margin-bottom: 1%;
     margin-top: 1%;
     height: 40px;
-    background-color: #21252e;
+    background-color: #ffffff;
     font-size: 100%;
-    border-radius: 5px;
-    color: #fddfdf;
+    border-radius: 2px;
+    color: #383838;
+    box-shadow: none;
+    border: none;
+    font-family: 'Fredoka One', cursive;
+    outline: none;
+    transition-duration: 0.05s;
 }
+#adminConsole button:hover {
+    background-color: #383838;
+    color:#ffffff;
+}
+
+#adminConsole button:active {
+    background-color: #ffffff;
+    border: 2px solid #383838;
+    color: #383838;
+    outline: none;
+}
+
 #fade {
 	position: fixed;
 	left: 0;
@@ -188,25 +206,33 @@ a {
 	position: fixed;
 	left: calc(50% - 150px);
 	top: calc(50% - 100px);
-	width: 300px;
-	height: 110px;
-	background-color: #b4afaf;
-	color: #5d5d5d;
+	width: 320px;
+	height: 120px;
+	background-color: #ffffff;
+	color: #676767;
 	opacity: 1.0;
 	z-index: 100;
-	border-radius: 5px;
+	border-radius: 2px;
 	display: none;
+    box-shadow: -5px 5px 60px 5px #383838;
 }
 #confirmMessage {
 	text-align: center;
-	padding: 5px;
+	padding: 10px;
+    padding-bottom: 0px;
+    font-size: 110%;
 }
 .confirmButton {
 	width: 117px;
 	height: 30px;
 	margin-left: 7%;
-	border-radius: 5px;
-	color: #5d5d5d;
+	border-radius: 2px;
+	color: #ffffff;
+    border: none;
+    background-color: #484848;
+}
+.confirmButton:active {
+    background-color: #7b7b7b;
 }
 
 
