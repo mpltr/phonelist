@@ -7,20 +7,30 @@ $password = "h4Mgreen1";
 if ($_POST['txtUsername'] != $username || $_POST['txtPassword'] != $password) { 
 
 ?> 
-
-<h1>Login</h1> 
-
+<html lan="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>RSG Phonelist Admin</title> 
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    </head>
+    <body style="overflow:hidden">
+<div id="loginWrapper">
+<h2 id="logTit">Phonelist Admin Login</h2>
 <form name="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"> 
-    <p><label for="txtUsername">Username:</label> 
-    <br /><input type="text" title="Enter your Username" name="txtUsername" /></p> 
+    <p><label for="txtUsername">Username</label> 
+    <br /><input type="text" title="Enter your Username" name="txtUsername" autofocus/></p> 
 
-    <p><label for="txtpassword">Password:</label> 
-    <br /><input type="password" title="Enter your password" name="txtPassword" /></p> 
+    <p><label for="txtpassword">Password</label> 
+    <br /><input type="password" title="Enter your password" name="txtPassword" /></p><br> 
 
-    <p><input type="submit" name="Submit" value="Login" /></p> 
+    <p><input id="logIn" type="submit" name="Submit" value="Login" /></p> 
 
 </form> 
-
+    <img id="horse" src="Horse.png"/>
+</div>
+</body>
+</html>
 <?php 
 
 } 
