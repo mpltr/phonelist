@@ -73,8 +73,8 @@ function add() {
 	for (var i = 0; i < 5; i++){
 		gbi('table').rows[1].insertCell(i);
 		gbi('table').rows[1].cells[i].contentEditable = true;
-		gbi('table').rows[1].cells[i].className = "tableCells";
-	}
+		gbi('table').rows[1].cells[i].className = "tableCells";            
+    }
     gbi('table').rows[1].insertCell(i);
     gbi('table').rows[1].cells[5].className = "tableCells";
 	gbi('table').rows[1].cells[5].innerHTML = "<input type='checkbox' class='delCheck'>";
@@ -133,4 +133,10 @@ function sendData(){
 	//Must add this request header to XMLHttpRequest request for POST
 	xmlhttp.setRequestHeader("Content-type", "application/JSON");
 	xmlhttp.send(data);
+}
+
+window.onload = function() {
+ gbc('tableCells').onpaste = function(e) {
+   e.preventDefault();
+ }
 }
