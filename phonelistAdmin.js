@@ -1,7 +1,8 @@
 var addressBook = new Array();
 var searchResults = new Array();
+var time = new Date().getTime();
 function loadContacts(){
-	var request = new HttpRequest("contacts.txt", handleData);
+	var request = new HttpRequest("contacts.txt?t=" + time, handleData);
 	request.send();
 }
 loadContacts();
@@ -47,6 +48,29 @@ function Contact(fn, sn, no, em, of) {
 	this.office = of;
 }
 
+function formatPhoneNumber(em, of) {
+	var noSpace = em.replace(/ /g, '');
+	var format = "xxxx xxx xxxx ";
+	if(of === "Munich"){
+		format = "xxxxxx xxxxxx xxx ";
+	}
+	if(of === "Dublin"){
+		format = "xxxxxx xxx xxxx "
+	}
+	for (var i = 0; i < noSpace.length; i++){
+		if (format.match(/x/)){
+			format = format.replace('x', noSpace[i]);
+		} else {
+			format += noSpace[i]
+		}
+	}
+
+	if(format.match(/x/)){
+		format = format.replace(/x/g, '');
+	}
+	return format;
+}
+
 function save() {
 	var tableLength = gbi('table').rows.length;
 	addressBook = [];
@@ -57,6 +81,7 @@ function save() {
 		var no = cellNum[2].innerHTML;
 		var em = cellNum[3].innerHTML;
 		var of = cellNum[4].innerHTML;
+			em = formatPhoneNumber(em, of);
 		addressBook[i-1] = new Contact(fn, sn, no, em, of);
 	}
 	searchResults = [];
@@ -74,7 +99,7 @@ function add() {
 		gbi('table').rows[1].insertCell(i);
 		gbi('table').rows[1].cells[i].contentEditable = true;
 		gbi('table').rows[1].cells[i].className = "tableCells";            
-    }
+        }
     gbi('table').rows[1].insertCell(i);
     gbi('table').rows[1].cells[5].className = "tableCells";
 	gbi('table').rows[1].cells[5].innerHTML = "<input type='checkbox' class='delCheck'>";
@@ -133,10 +158,4 @@ function sendData(){
 	//Must add this request header to XMLHttpRequest request for POST
 	xmlhttp.setRequestHeader("Content-type", "application/JSON");
 	xmlhttp.send(data);
-}
-
-window.onload = function() {
- gbc('tableCells').onpaste = function(e) {
-   e.preventDefault();
- }
 }

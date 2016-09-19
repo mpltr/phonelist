@@ -2,7 +2,8 @@ var addressBook = new Array();
 var searchResults = new Array();
 displaySearchBox();
 displayTable();
-function loadContacts(){    var request = new HttpRequest("contacts.txt", handleData);
+var time = new Date().getTime();
+function loadContacts(){    var request = new HttpRequest("contacts.txt?t=" + time, handleData);
     request.send();
 }
 loadContacts();
