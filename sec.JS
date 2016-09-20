@@ -85,11 +85,25 @@ function fillTableWithArrayEditable(arrayName, tableID){
         table.rows[i].className = tableID + "Rows";
         var keyCount = 0;
         for (var key in arrayName[i-1]){
-            if (key != "hidden"){
+            if (key != "office"){
                 table.rows[i].insertCell(keyCount);
                 table.rows[i].cells[keyCount].contentEditable = true;
                 table.rows[i].cells[keyCount].className = tableID + "Cells";
                 table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
+                keyCount++;
+            } else {
+                table.rows[i].insertCell(keyCount);
+                table.rows[i].cells[keyCount].className = tableID + "Cells";
+                var html = '<select>'
+                for (var j = 0; j < offices.length; j++){
+                    if(arrayName[i-1][key] === offices[j]){
+                        html += '<option selected="selected">' + offices[j] + '</option>';
+                    } else {
+                        html += '<option>' + offices[j] + '</option>';
+                    }
+                }
+                html += '</select>';
+                table.rows[i].cells[keyCount].innerHTML = html;
                 keyCount++;
             }
         }
