@@ -38,7 +38,24 @@ function scrollToTop(scrollDuration) {
 		},15);
 }
 ///// Admin //////
-var offices = ["Bristol HQ", "London", "Cardiff", "Reading", "Munich", "Edinburgh", "Manchester", "Dublin", "Southampton", "Jackson Milne", "Ham Green", "Sterling Manhatten", "RSA (London)", "Royal London (Edinburgh)","Royal London (Cheshire)","Nationawide RBP"];
+
+var offices = ["Bristol HQ", 
+				"London", 
+				"Cardiff", 
+				"Reading", 
+				"Munich", 
+				"Edinburgh", 
+				"Manchester", 
+				"Dublin", 
+				"Southampton", 
+				"Jackson Milne", 
+				"Ham Green", 
+				"Sterling Manhatten", 
+				"RSA (London)", 
+				"Royal London (Edinburgh)",
+				"Royal London (Cheshire)",
+				"Nationawide RBP"];
+
 gbi('searchBox').style.display = "none";
 gbi('searchIcon').style.display = "none";
 function Contact(fn, sn, no, em, of) {
