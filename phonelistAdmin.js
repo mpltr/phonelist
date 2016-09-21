@@ -5,7 +5,7 @@ function loadContacts(){
 	var request = new HttpRequest("contacts.txt?t=" + time, handleData);
 	request.send();
 }
-loadContacts();
+//contacts are loaded after the offices.txt file for the admin page. Scroll to admin below
 function handleData(text) {
 	var retrievedData = JSON.parse(text);
 	addressBook = retrievedData;
@@ -39,22 +39,18 @@ function scrollToTop(scrollDuration) {
 }
 ///// Admin //////
 
-var offices = ["Bristol HQ", 
-				"London", 
-				"Cardiff", 
-				"Reading", 
-				"Munich", 
-				"Edinburgh", 
-				"Manchester", 
-				"Dublin", 
-				"Southampton", 
-				"Jackson Milne", 
-				"Ham Green", 
-				"Sterling Manhatten", 
-				"RSA (London)", 
-				"Royal London (Edinburgh)",
-				"Royal London (Cheshire)",
-				"Nationawide RBP"];
+var offices = null;
+function requestOffices(){
+	var getOffices = new HttpRequest('offices.txt', officesCallback);
+	getOffices.send();
+}
+
+function officesCallback(text){
+	offices = text.split('\n');
+	loadContacts();
+}
+
+requestOffices();
 
 gbi('searchBox').style.display = "none";
 gbi('searchIcon').style.display = "none";
@@ -116,7 +112,19 @@ function add() {
 	for (var i = 0; i < 4; i++){
 		gbi('table').rows[1].insertCell(i);
 		gbi('table').rows[1].cells[i].contentEditable = true;
-		gbi('table').rows[1].cells[i].className = "tableCells";            
+		gbi('table').rows[1].cells[i].className = "tableCells";
+		gbi('table').rows[1].cells[i].onpaste = function(e){
+			e.preventDefault();
+		} 
+		if (i===3){
+			gbi('table').rows[1].cells[i].onpaste = function(e){
+			    e.preventDefault();
+			    var ClipboardData = e.clipboardData || window.ClipboardData;
+			    var pastedData = ClipboardData.getData('Text');
+			    var cleaned = cleanPaste(pastedData);
+			    this.innerHTML = cleaned;
+			}
+		}          
     }
     gbi('table').rows[1].insertCell(4);
     gbi('table').rows[1].cells[4].className = "tableCells";
@@ -126,10 +134,10 @@ function add() {
     }
     html += '</select>';
 	gbi('table').rows[1].cells[4].innerHTML = html;
-
     gbi('table').rows[1].insertCell(5);
     gbi('table').rows[1].cells[5].className = "tableCells";
 	gbi('table').rows[1].cells[5].innerHTML = "<input type='checkbox' class='delCheck'>";
+	gbi('table').rows[1].cells[0].focus();
 }
 gbi('add').addEventListener("click", add);
 
@@ -185,4 +193,9 @@ function sendData(){
 	//Must add this request header to XMLHttpRequest request for POST
 	xmlhttp.setRequestHeader("Content-type", "application/JSON");
 	xmlhttp.send(data);
+}
+
+function cleanPaste(content){
+	var clean = content.replace(/[^0-9]/g, '');
+	return clean;
 }

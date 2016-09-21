@@ -85,18 +85,12 @@ function fillTableWithArrayEditable(arrayName, tableID){
         table.rows[i].className = tableID + "Rows";
         var keyCount = 0;
         for (var key in arrayName[i-1]){
-            if (key != "office"){
-                table.rows[i].insertCell(keyCount);
-                table.rows[i].cells[keyCount].contentEditable = true;
-                table.rows[i].cells[keyCount].className = tableID + "Cells";
-                table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
-                keyCount++;
-            } else {
+            if (key == "office"){
                 table.rows[i].insertCell(keyCount);
                 table.rows[i].cells[keyCount].className = tableID + "Cells";
                 var html = '<select>'
                 for (var j = 0; j < offices.length; j++){
-                    if(arrayName[i-1][key] === offices[j]){
+                    if(arrayName[i-1][key].trim() == offices[j].trim()){
                         html += '<option selected="selected">' + offices[j] + '</option>';
                     } else {
                         html += '<option>' + offices[j] + '</option>';
@@ -104,6 +98,28 @@ function fillTableWithArrayEditable(arrayName, tableID){
                 }
                 html += '</select>';
                 table.rows[i].cells[keyCount].innerHTML = html;
+                keyCount++;
+            } else if (key == "external"){
+                table.rows[i].insertCell(keyCount);
+                table.rows[i].cells[keyCount].contentEditable = true;
+                table.rows[i].cells[keyCount].className = tableID + "Cells";
+                table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
+                table.rows[i].cells[keyCount].onpaste = function(e){
+                    e.preventDefault();
+                    var ClipboardData = e.clipboardData || window.ClipboardData;
+                    var pastedData = ClipboardData.getData('Text');
+                    var cleaned = cleanPaste(pastedData);
+                    this.innerHTML = cleaned;
+                }
+                keyCount++;
+            } else {
+                table.rows[i].insertCell(keyCount);
+                table.rows[i].cells[keyCount].contentEditable = true;
+                table.rows[i].cells[keyCount].className = tableID + "Cells";
+                table.rows[i].cells[keyCount].innerHTML = arrayName[i-1][key];
+                table.rows[i].cells[keyCount].onpaste = function(e){
+                    e.preventDefault();
+                }
                 keyCount++;
             }
         }
