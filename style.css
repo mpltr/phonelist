@@ -14,6 +14,12 @@ html, body {
     margin: 0;
     padding:0;
 }
+
+.tableCells:focus {
+    outline: 1px solid #497BAE;
+    background-color: #FFF0F3;
+}
+
 #loading{
 	position: absolute;
 	top: 0;
