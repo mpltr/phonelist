@@ -78,5 +78,53 @@ function displayTable(){
 }
 
 function displaySearchBox(){
-    gbi('inputs').innerHTML = '<img src="PL.png"/><img id="searchIcon" src="search.png"/><input type="text" id="searchBox" autofocus></input>';
+    var searchBox = document.createElement('input');
+    searchBox.style.type = "text";
+    searchBox.id = "searchBox";
+    gbi('inputs').appendChild(searchBox);
+
+    var searchIcon = document.createElement('img');
+    searchIcon.id = "searchIcon";
+    searchIcon.src = "search.png";
+    gbi('inputs').appendChild(searchIcon);
 }
+
+gbi("pl").addEventListener("click", function(){
+    this.className = "toggleSelected";
+    gbi('fp').className = "";
+    gbi('table').style.display = "table";
+    gbi("floorplan").style.display = "none";
+    gbi("searchBox").style.display = "block";
+    gbi("searchIcon").style.display = "block";
+    gbi('floorButtonWrap').style.display = "none";
+    gbi('title').innerText = "PHONE LIST";
+})
+
+gbi("fp").addEventListener("click", function(){
+    this.className = "toggleSelected";
+    gbi("pl").className = "";
+    gbi('table').style.display = "none";
+    gbi("floorplan").style.display = "block";
+    gbi("searchBox").style.display = "none";
+    gbi("searchIcon").style.display = "none";
+    gbi('floorButtonWrap').style.display = "block";
+    gbi('title').innerText = "FLOOR PLAN";    
+})
+
+gbi('mainFloor').addEventListener("click", function(){
+    gbc('floorButtons floorHigh')[0].className = "floorButtons";
+    this.className = "floorButtons floorHigh";
+    gbi('floorplan').src = "Floorplan.png";
+})
+
+gbi('meeting').addEventListener("click", function(){
+    gbc('floorButtons floorHigh')[0].className = "floorButtons";
+    this.className = "floorButtons floorHigh";
+    gbi('floorplan').src = "Floorplan2.png";
+})
+
+gbi('second').addEventListener("click", function(){
+    gbc('floorButtons floorHigh')[0].className = "floorButtons";
+    this.className = "floorButtons floorHigh";
+    gbi('floorplan').src = "Floorplan3.png";
+})

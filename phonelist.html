@@ -6,6 +6,9 @@
         <title>RSG Phonelist</title>  
         <link rel="stylesheet" href="style.css">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/css?family=Dosis:300" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+
     </head>
     <body>
 	<div id="loading">
@@ -19,12 +22,23 @@
             <img src="rsg-logo.png"/>
         </div>
         <div id="inputs">
-            
+            <div id="title">PHONE LIST</div>
+            <div id="pl" class="toggleSelected"></div>
+            <div id="fp"></div>  
+             <div id="floorButtonWrap">
+                <div id="mainFloor" class="floorButtons floorHigh">Main Floor</div>
+                <div id="meeting" class="floorButtons">Meeting Rooms</div>
+                <div id="second" class="floorButtons">Second Floor</div>
+            </div>          
         </div>   
         <table id="table">
            
         </table>
+        <!-- <div id="floorplan"> -->
+          
+        <!-- </div> -->
     </div>  
+      <img id="floorplan" src="Floorplan.png" alt="" />
     <script src="sec.JS"></script>
     <script src="phonelist.js"></script>
         
