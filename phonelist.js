@@ -82,6 +82,7 @@ function displaySearchBox(){
     searchBox.style.type = "text";
     searchBox.id = "searchBox";
     gbi('inputs').appendChild(searchBox);
+    gbi('searchBox').focus();
 
     var searchIcon = document.createElement('img');
     searchIcon.id = "searchIcon";
@@ -90,41 +91,49 @@ function displaySearchBox(){
 }
 
 gbi("pl").addEventListener("click", function(){
-    this.className = "toggleSelected";
-    gbi('fp').className = "";
+    openPhonelist();
+})
+
+function openPhonelist(){
+    gbi('pl').className = "toggleSelected";
+    gbi('fp').className = "toggle";
     gbi('table').style.display = "table";
     gbi("floorplan").style.display = "none";
     gbi("searchBox").style.display = "block";
     gbi("searchIcon").style.display = "block";
     gbi('floorButtonWrap').style.display = "none";
     gbi('title').innerText = "PHONE LIST";
+    gbi('searchBox').focus();
+}
+gbi("fp").addEventListener("click", function(){
+    openFloorplan();
 })
 
-gbi("fp").addEventListener("click", function(){
-    this.className = "toggleSelected";
-    gbi("pl").className = "";
+function openFloorplan(){
+    gbi('fp').className = "toggleSelected";
+    gbi("pl").className = "toggle";
     gbi('table').style.display = "none";
     gbi("floorplan").style.display = "block";
     gbi("searchBox").style.display = "none";
     gbi("searchIcon").style.display = "none";
     gbi('floorButtonWrap').style.display = "block";
-    gbi('title').innerText = "FLOOR PLAN";    
-})
+    gbi('title').innerText = "FLOOR PLAN"; 
+}
 
 gbi('mainFloor').addEventListener("click", function(){
     gbc('floorButtons floorHigh')[0].className = "floorButtons";
     this.className = "floorButtons floorHigh";
-    gbi('floorplan').src = "Floorplan.png";
+    gbi('floorplan').src = "Floorplan.png?" + time;
 })
 
 gbi('meeting').addEventListener("click", function(){
     gbc('floorButtons floorHigh')[0].className = "floorButtons";
     this.className = "floorButtons floorHigh";
-    gbi('floorplan').src = "Floorplan2.png";
+    gbi('floorplan').src = "Floorplan2.png?" + time;
 })
 
 gbi('second').addEventListener("click", function(){
     gbc('floorButtons floorHigh')[0].className = "floorButtons";
     this.className = "floorButtons floorHigh";
-    gbi('floorplan').src = "Floorplan3.png";
+    gbi('floorplan').src = "Floorplan3.png?" + time;
 })

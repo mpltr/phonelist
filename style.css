@@ -79,7 +79,8 @@ body {
     height: 27px;
 }
 #title {
-    font-family: 'Dosis', sans-serif;
+    /*font-family: 'Dosis', sans-serif;*/
+    font-weight: 300;
     height: 100%;
     font-size: 34px;
     color: #5C5C5C;
@@ -91,30 +92,37 @@ body {
     height: calc(100% - 10px);
     width: 37px;
     padding: 5px;
-    border: 2px solid #898989;
-    border-radius: 8px 0 0 8px;
+    border: 2px solid #777777;
+    border-radius: 7px 0 0 7px;
     background-image: url(phone.png);
     background-size: contain;
     background-origin:content-box;
     background-repeat: no-repeat;
     background-position: center;
+    user-select: none;   
+    outline: none;
 }
 #fp {
     height: calc(100% - 4px);
     width: 43px; 
-    border: 2px solid  #898989;
-    border-radius: 0px 10px 10px 0px;
+    border: 2px solid  #777777;
+    border-radius: 0px 7px 7px 0px;
     padding: 2px;
     background-image: url(people.png);
     background-size: contain;
     background-origin:content-box;
     background-repeat: no-repeat;
     background-position: center;
-    cursor: pointer;
     margin-left: -2px;
+    user-select: none;
+    outline: none;
+}
+.toggle{
+    cursor: pointer;
 }
 .toggleSelected {
-    background-color: #B6B6B6;
+    background-color: #E4E4E4;
+    cursor: default;
 }
 
 #table {
@@ -123,6 +131,7 @@ body {
     clear:both;
     margin-top: 50px;
     margin-bottom: 100px;
+    border-collapse: collapse;
     border-collapse: collapse;
 }
 /* Table Header */
@@ -161,7 +170,7 @@ body {
 /* Contact Rows */
 .tableRows {
     background-color: #e7f0ff;
-    color: #3A5D95;  
+    color: #263D61;  
     height: 25px;
 }
 .tableCells {
@@ -169,6 +178,7 @@ body {
     border-width: 2px;
     border-color: #acacac;
     padding: 3px;
+    padding-left: 5px;
     height: 30px;
 }
 #searchIcon {
@@ -208,35 +218,39 @@ body {
 #floorButtonWrap {
     height: 100%;
     display: none;
-    margin-left: 90px;
+    margin-left: 60px;
 }
 .floorButtons {
     float:left;
     text-align: center;
-    line-height: 100%;
+    line-height: 110%;
     height: calc(100% - 10px);
     width: 120px;
     padding: 5px;
-    border: 2px solid #898989;
+    border: 2px solid #777777;
     border-collapse: collapse;
     cursor: pointer;
     font-weight: 400;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+     -ms-user-select: none;       /* Internet Explorer/Edge */
+     user-select: none;  
 }
 .floorHigh {
-    background-color: #B6B6B6;
-    /*color: white;*/
-    /*font-weight: 600;*/
+    background-color: #E4E4E4;
     cursor: default;
 }
 #mainFloor {
-    border-radius: 8px 0 0 8px;
+    border-radius: 7px 0 0 7px;
 }
 #meeting {
     border-radius: 0px 0 0 0px;
     margin-left: -2px;
 }
 #second {
-    border-radius: 0px 8px 8px 0px;
+    border-radius: 0px 7px 7px 0px;
      margin-left: -2px;
 }
 
