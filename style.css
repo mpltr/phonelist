@@ -84,7 +84,7 @@ body {
     height: 100%;
     font-size: 34px;
     color: #5C5C5C;
-    line-height: 70%;
+    line-height: 90%;
     width: 200px;
 }
 #pl {
@@ -213,6 +213,12 @@ body {
     margin: auto;
     padding-top: 80px;
     margin-bottom: 100px;
+     -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+     -ms-user-select: none;       /* Internet Explorer/Edge */
+     user-select: none;  
 }
 
 #floorButtonWrap {
