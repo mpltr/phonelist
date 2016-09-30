@@ -168,11 +168,25 @@ function addHighlight(selectedClass, highlightClass, target) {
     target.className = "";
     target.className = highlightClass;
 } //Puts a chosen highlightClass onto a clicked item and clears any highlights on items in the same selectedClass
-function sortObjectArray(sortArray, sortByKey) {
+function sortObjectArray(sortArray, sortByKey, secondaryKey) {
     sortArray.sort(function(a,b){
         var alc = a[sortByKey].toLowerCase(); 
         var blc = b[sortByKey].toLowerCase();
-        return alc > blc ? 1 : alc < blc ? -1 : 0;
+        if(alc == blc){
+            var asc = a[secondaryKey].toLowerCase();
+            var bsc = b[secondaryKey].toLowerCase();
+            if(asc.match(/\d+/) && bsc.match(/\d+/)){
+                asc = parseInt(asc.replace(/\s/gi));
+                bsc = parseInt(bsc.replace(/\s/gi));
+            }
+            return asc < bsc ? -1 : asc > bsc ? 1 : 0;
+        } else {
+            if(alc.match(/\d+/) && blc.match(/\d+/)){
+                alc = parseInt(alc.replace(/\s/gi, ''));
+                blc = parseInt(blc.replace(/\s/gi, ''));
+            }
+            return alc < blc ? -1 : 1;
+        }
     }); 
 } // Copied, needs research. Sort Object Array by specified key
 function monitorTopRow(tableID, callFunction) {

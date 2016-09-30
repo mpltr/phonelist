@@ -10,7 +10,7 @@ function handleData(text) {
 	var retrievedData = JSON.parse(text);
 	addressBook = retrievedData;
 	searchArrayObjects('searchBox', addressBook, searchResults);
-	sortObjectArray(searchResults, 'FirstName');
+	sortObjectArray(searchResults, 'FirstName', 'SecondName');
 	fillTableWithArrayEditable(searchResults, 'table');
 	gbi('loading').style.display = "none";
 	//    addHighlight('rowHeader', 'rowHeaderHighlighted', gbc('rowHeader')[0]);
@@ -100,7 +100,7 @@ function save() {
 	}
 	searchResults = [];
 	searchResults = addressBook;
-	sortObjectArray(searchResults, 'FirstName');
+	sortObjectArray(searchResults, 'FirstName', 'SecondName');
 	clearTable('table');
 	fillTableWithArrayEditable(searchResults, 'table');
 }
