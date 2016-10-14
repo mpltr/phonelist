@@ -113,7 +113,7 @@ function openPhonelist(){
     gbi("searchBox").style.display = "block";
     gbi("searchIcon").style.display = "block";
     gbi('floorButtonWrap').style.display = "none";
-    gbi('title').innerText = "PHONE LIST";
+    gbi('title').innerText = "Phone List";
     gbi('searchBox').focus();
 }
 gbi("fp").addEventListener("click", function(){
@@ -128,7 +128,7 @@ function openFloorplan(){
     gbi("searchBox").style.display = "none";
     gbi("searchIcon").style.display = "none";
     gbi('floorButtonWrap').style.display = "block";
-    gbi('title').innerText = "FLOOR PLAN"; 
+    gbi('title').innerText = "Floor Plan"; 
 }
 
 gbi('mainFloor').addEventListener("click", function(){
